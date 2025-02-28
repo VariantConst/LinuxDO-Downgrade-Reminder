@@ -74,10 +74,12 @@ export default function ConfirmationPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative bg-white">
-      <div className="text-center max-w-xl mx-auto z-10">
-        <h1 className="text-5xl font-bold mb-8 text-gray-800">设置成功！</h1>
-        <p className="text-xl mb-10 text-gray-600">
+    <div className="min-h-screen flex flex-col items-center justify-center relative bg-white p-4">
+      <div className="text-center max-w-xl mx-auto z-10 px-4 sm:px-0">
+        <h1 className="text-4xl sm:text-5xl font-bold mb-6 sm:mb-8 text-gray-800">
+          设置成功！
+        </h1>
+        <p className="text-lg sm:text-xl mb-8 sm:mb-10 text-gray-600">
           我们已成功设置您的提醒邮箱。当您的信任等级从 3 级降至 2
           级时，我们将立即通知您。
         </p>
@@ -85,7 +87,7 @@ export default function ConfirmationPage() {
         <Button
           variant="outline"
           onClick={() => router.push("/")}
-          className="w-64 h-14 text-lg text-gray-700 border-gray-400 hover:bg-gray-100"
+          className="w-full sm:w-64 h-12 sm:h-14 text-base sm:text-lg text-gray-700 border-gray-400 hover:bg-gray-100"
         >
           返回首页
         </Button>
