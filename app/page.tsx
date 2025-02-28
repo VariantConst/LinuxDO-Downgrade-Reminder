@@ -36,6 +36,7 @@ export default async function Home() {
 
         <EmailForm
           username={session.user.username}
+          userId={session.user.id}
           trustLevel={session.user.trustLevel}
         />
       </div>

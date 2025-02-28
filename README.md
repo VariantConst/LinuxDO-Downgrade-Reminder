@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Linux.do 降级提醒系统
 
-## Getting Started
+这是一个为 Linux.do 社区用户提供信任级别变更提醒的系统。当用户的信任级别从 3 降至 2 时，系统会自动发送邮件提醒。
 
-First, run the development server:
+## 功能特点
+
+- 定期检查用户信任级别变化
+- 当用户从信任级别 3 降至 2 时，自动发送邮件提醒
+- 使用 Next.js 和 Prisma 构建，支持 SQLite 数据库
+
+## 安装与设置
+
+1. 克隆仓库
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/linuxdo-downgrade-reminder.git
+cd linuxdo-downgrade-reminder
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. 安装依赖
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. 配置环境变量
 
-## Learn More
+复制 `.env.example` 文件为 `.env`，并填写相应的配置：
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cp .env.example .env
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+编辑 `.env` 文件，填写以下信息：
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- SMTP 邮件服务配置
+- Next Auth 配置（如果使用）
 
-## Deploy on Vercel
+4. 初始化数据库
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm prisma migrate dev --name init
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. 构建应用
+
+```bash
+pnpm build
+```
+
+6. 启动应用
+
+```bash
+pnpm start
+```
+
+应用启动后，会自动开启定时任务，每天检查用户信任级别变化。
+
+## 数据库模型
+
+系统使用 `EmailReminder` 模型存储用户信息：
+
+```prisma
+model EmailReminder {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  userId     Int      @unique
+  username   String
+  trustLevel Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+```
+
+## 定时任务
+
+系统会在以下情况下启动定时任务：
+
+1. 应用启动时（通过 `pnpm start` 命令）
+2. 手动访问 `/api/cron` 接口
+
+定时任务会每天凌晨 2 点（中国时区）执行，检查所有用户的信任级别变化。
+
+## 手动添加用户
+
+可以通过 Prisma Studio 手动添加需要监控的用户：
+
+```bash
+pnpm prisma studio
+```
+
+然后在浏览器中打开 http://localhost:5555 ，添加用户信息。
+
+## 许可证
+
+MIT
