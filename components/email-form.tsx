@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId } from "react";
 import { useRouter } from "next/navigation";
 import { RainbowButton } from "@/components/ui/rainbow-button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface EmailFormProps {
   username: string;
@@ -13,6 +15,7 @@ export function EmailForm({ username, trustLevel }: EmailFormProps) {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const emailId = useId();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,29 +46,33 @@ export function EmailForm({ username, trustLevel }: EmailFormProps) {
 
   return (
     <div className="w-full">
-      <p className="text-xl mb-10 text-gray-600 leading-relaxed text-center">
-        请输入您的邮箱地址，当您的信任等级发生变化时，我们将通过邮件通知您。
+      <p className="text-xl mb-10 text-muted-foreground leading-relaxed text-center">
+        当您的信任等级从{" "}
+        <span className="font-medium text-green-500">三级</span> 降到{" "}
+        <span className="font-medium text-yellow-500">二级</span>{" "}
+        时，我们将通过邮件通知您。
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <div className="relative">
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="请输入您的邮箱地址"
-              required
-              className="w-full px-4 py-3 sm:py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-transparent bg-white text-gray-800 text-base sm:text-lg"
-            />
-          </div>
+        <div
+          className="space-y-2"
+          style={{ "--ring": "234 89% 74%" } as React.CSSProperties}
+        >
+          <Label htmlFor={emailId}>邮箱地址</Label>
+          <Input
+            id={emailId}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder=""
+            required
+          />
         </div>
 
         <RainbowButton
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3 sm:py-4 text-white font-medium rounded-lg transition-colors duration-200 text-base sm:text-lg"
+          className="w-full py-3 sm:py-4 font-medium rounded-lg transition-colors duration-200 text-base sm:text-lg"
         >
           {isSubmitting ? "提交中..." : "确认设置"}
         </RainbowButton>

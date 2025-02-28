@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 export function LoginButton() {
   const handleSignIn = async () => {
@@ -10,11 +11,11 @@ export function LoginButton() {
   };
 
   return (
-    <button
+    <Button
       onClick={handleSignIn}
-      className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2"
+      className="px-6 py-3 text-primary-foreground font-medium rounded-full text-lg bg-primary hover:bg-primary/90"
     >
-      Sign in with Linux DO
-    </button>
+      使用 Linux DO 登录
+    </Button>
   );
 }

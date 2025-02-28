@@ -1,27 +1,27 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import confetti from "canvas-confetti";
 import type { ConfettiRef } from "@/components/ui/confetti";
 import { Confetti } from "@/components/ui/confetti";
-import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { GitHubLink } from "@/components/ui/github-link";
+import { LogoutButton } from "@/components/logout-button";
 
 export default function ConfirmationPage() {
   const confettiRef = useRef<ConfettiRef>(null);
-  const router = useRouter();
 
   useEffect(() => {
     // 页面加载时触发单一壮观的烟花效果
     const timer = setTimeout(() => {
-      launchFullscreenFirework();
+      launchSingleFirework();
     }, 300);
 
     return () => clearTimeout(timer);
   }, []);
 
-  const launchFullscreenFirework = () => {
-    // 创建一个上升然后爆炸的烟花效果
+  const launchSingleFirework = () => {
+    // 创建一个壮观的烟花效果
     const defaults = {
       startVelocity: 25,
       ticks: 200, // 增加ticks使动画更持久
@@ -31,66 +31,32 @@ export default function ConfirmationPage() {
       zIndex: 0,
     };
 
-    // 先发射一个小的烟花上升
+    // 只放一次壮观的烟花
     confetti({
-      particleCount: 10,
-      angle: 90,
-      spread: 20,
-      origin: { x: 0.5, y: 0.9 },
-      colors: ["#888", "#555", "#333"],
+      particleCount: 250,
+      origin: { x: 0.5, y: 0.5 },
+      spread: 180,
       ...defaults,
     });
-
-    // 然后在顶部爆炸成大烟花
-    setTimeout(() => {
-      // 中央爆炸
-      confetti({
-        particleCount: 250,
-        origin: { x: 0.5, y: 0.5 },
-        spread: 180,
-        ...defaults,
-      });
-
-      // 左侧爆炸
-      setTimeout(() => {
-        confetti({
-          particleCount: 150,
-          origin: { x: 0.3, y: 0.4 },
-          spread: 160,
-          ...defaults,
-        });
-      }, 200);
-
-      // 右侧爆炸
-      setTimeout(() => {
-        confetti({
-          particleCount: 150,
-          origin: { x: 0.7, y: 0.4 },
-          spread: 160,
-          ...defaults,
-        });
-      }, 400);
-    }, 800);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative bg-white p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center relative bg-background p-4">
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <GitHubLink />
+        <ThemeToggle />
+        <LogoutButton />
+      </div>
       <div className="text-center max-w-xl mx-auto z-10 px-4 sm:px-0">
-        <h1 className="text-4xl sm:text-5xl font-bold mb-6 sm:mb-8 text-gray-800">
+        <h1 className="text-4xl sm:text-5xl font-bold mb-6 sm:mb-8 text-foreground">
           设置成功！
         </h1>
-        <p className="text-lg sm:text-xl mb-8 sm:mb-10 text-gray-600">
-          我们已成功设置您的提醒邮箱。当您的信任等级从 3 级降至 2
-          级时，我们将立即通知您。
+        <p className="text-lg sm:text-xl mb-8 sm:mb-10 text-muted-foreground">
+          我们已成功设置您的提醒邮箱。当您的信任等级从{" "}
+          <span className="font-medium text-green-500">三级</span> 降至{" "}
+          <span className="font-medium text-yellow-500">二级</span> 时，
+          我们将立即通知您。
         </p>
-
-        <Button
-          variant="outline"
-          onClick={() => router.push("/")}
-          className="w-full sm:w-64 h-12 sm:h-14 text-base sm:text-lg text-gray-700 border-gray-400 hover:bg-gray-100"
-        >
-          返回首页
-        </Button>
       </div>
 
       <Confetti
