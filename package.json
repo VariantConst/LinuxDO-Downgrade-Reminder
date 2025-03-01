@@ -5,15 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "dev:custom": "node server.js",
+    "dev:with-cron": "node server.js",
     "build": "next build",
     "start": "next start",
-    "start:with-cron": "next start & (sleep 5 && curl -s http://localhost:3000/api/cron > /dev/null 2>&1 &)",
-    "start:safe": "bash scripts/start-with-cron.sh",
-    "start:custom": "NODE_ENV=production node server.js",
+    "start:with-cron": "NODE_ENV=production node server.js",
     "cron": "curl -s http://localhost:3000/api/cron",
     "free-port": "bash scripts/free-port.sh 3000",
-    "free-port:auto": "bash scripts/free-port.sh 3000 y",
     "lint": "next lint"
   },
   "dependencies": {
