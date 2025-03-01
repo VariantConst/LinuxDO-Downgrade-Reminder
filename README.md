@@ -56,7 +56,8 @@ LINUXDO_CLIENT_SECRET=your-client-secret  # Linux.do OAuth客户端密钥
 4. 初始化数据库
 
 ```bash
-pnpm prisma migrate dev --name init
+npx prisma generate
+npx prisma db push
 ```
 
 5. 构建应用
@@ -67,15 +68,21 @@ pnpm build
 
 6. 启动应用
 
+在启动任务前，最好取消代理，避免发送失败。
+
+```bash
+unset http_proxy; unset https_proxy
+```
+
 有多种方式可以启动应用：
 
-### 标准启动
+### 仅前端启动
 
 ```bash
 pnpm start
 ```
 
-### 带定时任务的启动
+### 带定时发送邮件任务的启动
 
 ```bash
 pnpm start:with-cron
@@ -161,9 +168,9 @@ LINUXDO_CLIENT_SECRET=your-client-secret
 要使用 Linux.do 的 OAuth 登录功能，您需要在 Linux.do 平台注册一个应用并获取客户端 ID 和密钥：
 
 1. 登录到 Linux.do 平台
-2. 访问开发者设置页面
+2. 访问左侧 Connect 页面
 3. 创建一个新的 OAuth 应用
-4. 设置应用名称和重定向 URL（例如：`http://localhost:${PORT}/api/auth/callback/linuxdo`，其中 PORT 是应用运行端口）
+4. 设置应用名称和重定向 URL（例如：`http://localhost:${PORT}/api/auth/callback/linuxdo`，或者生产环境 `https://your-reminder-domain/api/auth/callback/linuxdo`，其中 PORT 是应用运行端口）
 5. 提交申请后，您将获得客户端 ID 和客户端密钥
 6. 将这些值分别填入`LINUXDO_CLIENT_ID`和`LINUXDO_CLIENT_SECRET`环境变量
 
