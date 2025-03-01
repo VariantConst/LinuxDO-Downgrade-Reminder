@@ -9,7 +9,6 @@
     "start": "NODE_ENV=production node server.js",
     "cron": "curl -s http://localhost:${PORT:-3000}/api/cron",
     "free-port": "bash scripts/free-port.sh ${PORT:-3000}",
-    "free-port:auto": "bash scripts/free-port.sh ${PORT:-3000} y",
     "lint": "next lint"
   },
   "dependencies": {

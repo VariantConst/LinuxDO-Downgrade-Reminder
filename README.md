@@ -1,6 +1,8 @@
-# Linux.do 降级提醒系统
+# Linux DO 降级提醒
 
-这是一个为 Linux.do 社区用户提供信任级别变更提醒的系统。当用户的信任级别从 3 降至 2 时，系统会自动发送邮件提醒。
+这是一个为 Linux DO 社区用户提供信任级别变更提醒的系统。当用户的信任级别从 3 降至 2 时，系统会自动发送邮件提醒。
+
+您可以访问我们的[在线 Demo 站点](https://linuxdo-reminder.variantconst.com/)来体验该系统的功能。
 
 ## 功能特点
 
@@ -8,7 +10,7 @@
 - 当用户从信任级别 3 降至 2 时，自动发送邮件提醒
 - 使用 Next.js 和 Prisma 构建，支持 SQLite 数据库
 - 智能端口检测，当端口被占用时提示用户释放
-- 支持 Linux.do OAuth 登录认证
+- 支持 Linux DO OAuth 登录认证
 
 ## 安装与设置
 
@@ -49,8 +51,8 @@ PORT=3000  # 应用运行端口，可根据需要修改
 # Next Auth 配置
 NEXTAUTH_SECRET=your-secret-here  # NextAuth加密密钥，可使用随机字符串
 NEXTAUTH_URL=http://localhost:${PORT}  # 应用URL，开发环境通常为`http://localhost:${PORT}`，其中PORT是应用运行端口，生产环境需要修改为实际域名
-LINUXDO_CLIENT_ID=your-client-id  # Linux.do OAuth客户端ID
-LINUXDO_CLIENT_SECRET=your-client-secret  # Linux.do OAuth客户端密钥
+LINUXDO_CLIENT_ID=your-client-id  # Linux DO OAuth客户端ID
+LINUXDO_CLIENT_SECRET=your-client-secret  # Linux DO OAuth客户端密钥
 ```
 
 4. 初始化数据库
@@ -74,21 +76,11 @@ pnpm build
 unset http_proxy; unset https_proxy
 ```
 
-有多种方式可以启动应用：
-
-### 仅前端启动
+然后
 
 ```bash
 pnpm start
 ```
-
-### 带定时发送邮件任务的启动
-
-```bash
-pnpm start:with-cron
-```
-
-### 手动释放端口
 
 如果需要手动释放端口，可以执行：
 
@@ -156,18 +148,18 @@ LINUXDO_CLIENT_ID=your-client-id
 LINUXDO_CLIENT_SECRET=your-client-secret
 ```
 
-这些配置用于设置 NextAuth 认证和 Linux.do OAuth 登录：
+这些配置用于设置 NextAuth 认证和 Linux DO OAuth 登录：
 
 - `NEXTAUTH_SECRET`：用于加密会话和令牌的密钥，建议使用随机生成的字符串
 - `NEXTAUTH_URL`：应用的完整 URL，开发环境通常为`http://localhost:${PORT}`，其中 PORT 是应用运行端口，生产环境需要修改为实际域名
-- `LINUXDO_CLIENT_ID`：从 Linux.do 获取的 OAuth 客户端 ID
-- `LINUXDO_CLIENT_SECRET`：从 Linux.do 获取的 OAuth 客户端密钥
+- `LINUXDO_CLIENT_ID`：从 Linux DO 获取的 OAuth 客户端 ID
+- `LINUXDO_CLIENT_SECRET`：从 Linux DO 获取的 OAuth 客户端密钥
 
-## Linux.do OAuth 配置指南
+## Linux DO OAuth 配置指南
 
-要使用 Linux.do 的 OAuth 登录功能，您需要在 Linux.do 平台注册一个应用并获取客户端 ID 和密钥：
+要使用 Linux DO 的 OAuth 登录功能，您需要在 Linux DO 平台注册一个应用并获取客户端 ID 和密钥：
 
-1. 登录到 Linux.do 平台
+1. 登录到 Linux DO 平台
 2. 访问左侧 Connect 页面
 3. 创建一个新的 OAuth 应用
 4. 设置应用名称和重定向 URL（例如：`http://localhost:${PORT}/api/auth/callback/linuxdo`，或者生产环境 `https://your-reminder-domain/api/auth/callback/linuxdo`，其中 PORT 是应用运行端口）
@@ -190,7 +182,7 @@ LINUXDO_CLIENT_SECRET=your-client-secret
 2. 在"登录 Google"部分，点击"应用密码"
    - 如果看不到此选项，请确保已启用两步验证
 3. 在"选择应用"下拉菜单中选择"其他（自定义名称）"
-4. 输入一个描述性名称，例如"Linux.do 降级提醒"
+4. 输入一个描述性名称，例如"Linux DO 降级提醒"
 5. 点击"生成"
 6. 系统将显示一个 16 位的应用密码，请记下此密码
    - 注意：这是您唯一能看到此密码的机会，请立即复制并保存
@@ -217,7 +209,7 @@ GMAIL_APP_PASSWORD=您的应用密码
 1. 确保所有环境变量都已正确配置
 2. 检查数据库连接是否正常
 3. 确保 Gmail 应用密码正确且未过期
-4. 检查 Linux.do OAuth 配置是否正确
+4. 检查 Linux DO OAuth 配置是否正确
 5. 查看应用日志以获取更详细的错误信息
 
 如果问题仍然存在，请提交 issue 或联系维护者获取帮助。
