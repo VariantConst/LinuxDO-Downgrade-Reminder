@@ -13,9 +13,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-console.log("环境变量PORT:", process.env.PORT);
 const PORT = parseInt(process.env.PORT, 10) || 3000;
-console.log("使用端口:", PORT);
 
 const rl = readline.createInterface({
   input: process.stdin,
