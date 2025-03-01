@@ -117,7 +117,7 @@ async function checkAllUsersTrustLevels() {
 }
 
 export function startTrustLevelChecker() {
-  const schedule = "52 1 * * *";
+  const schedule = "0 2 * * *";
 
   console.log(`Trust Level 检查任务已启动，计划: ${schedule}`);
 
