@@ -13,7 +13,7 @@ datasource db {
 // 邮箱提醒模型
 model EmailReminder {
   id         Int      @id @default(autoincrement())
-  email      String   @unique
+  email      String
   userId     Int      @unique
   username   String
   trustLevel Int
