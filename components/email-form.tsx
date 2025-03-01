@@ -22,7 +22,6 @@ export function EmailForm({ username, userId, trustLevel }: EmailFormProps) {
   const router = useRouter();
   const emailId = useId();
 
-  // 加载用户现有的邮箱设置
   useEffect(() => {
     const fetchEmailSetting = async () => {
       try {
@@ -53,7 +52,6 @@ export function EmailForm({ username, userId, trustLevel }: EmailFormProps) {
     setError(null);
 
     try {
-      // 调用 API 保存邮箱
       const response = await fetch("/api/save-email", {
         method: "POST",
         headers: {
@@ -71,7 +69,6 @@ export function EmailForm({ username, userId, trustLevel }: EmailFormProps) {
         `保存邮箱: ${email} 用于用户: ${username}(ID: ${userId}), 当前信任等级: ${trustLevel}`
       );
 
-      // 提交成功后跳转到确认页面，并传递邮箱参数
       router.push(`/confirmation?email=${encodeURIComponent(email)}`);
     } catch (error) {
       console.error("提交邮箱失败:", error);

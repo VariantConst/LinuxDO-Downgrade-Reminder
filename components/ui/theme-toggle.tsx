@@ -10,13 +10,12 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
-  // 在客户端挂载后才渲染切换按钮
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
-    return <div className="w-9 h-9" />; // 占位符，保持布局稳定
+    return <div className="w-9 h-9" />;
   }
 
   return (

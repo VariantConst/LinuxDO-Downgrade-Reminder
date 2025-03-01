@@ -1,13 +1,22 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-  echo "用法: $0 <端口号> [auto_confirm]"
+# 如果参数是 -h 或 --help，显示帮助信息
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+  echo "用法: $0 [端口号] [auto_confirm]"
   echo "例如: $0 3000"
-  echo "或者: $0 \${PORT:-3000} y (自动确认，使用环境变量PORT或默认3000)"
-  exit 1
+  echo "或者: $0 3000 y (自动确认)"
+  echo "如果不提供端口号，将使用环境变量PORT或默认值3000"
+  exit 0
 fi
 
-PORT=$1
+# 如果没有提供参数，则使用环境变量PORT或默认值3000
+if [ -z "$1" ]; then
+  PORT=${PORT:-3000}
+  echo "未提供端口参数，使用环境变量PORT或默认值: $PORT"
+else
+  PORT=$1
+fi
+
 AUTO_CONFIRM=$2
 
 echo "查找使用端口 $PORT 的进程..."

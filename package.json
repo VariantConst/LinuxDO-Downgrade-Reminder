@@ -4,13 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p ${PORT:-3000}",
     "dev:with-cron": "node server.js",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p ${PORT:-3000}",
     "start:with-cron": "NODE_ENV=production node server.js",
     "cron": "curl -s http://localhost:${PORT:-3000}/api/cron",
     "free-port": "bash scripts/free-port.sh ${PORT:-3000}",
+    "free-port:auto": "bash scripts/free-port.sh ${PORT:-3000} y",
     "lint": "next lint"
   },
   "dependencies": {

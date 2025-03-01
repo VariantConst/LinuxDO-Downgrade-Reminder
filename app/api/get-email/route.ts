@@ -16,7 +16,6 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "用户ID必须是数字" }, { status: 400 });
     }
 
-    // 查询用户的邮箱设置
     const whereCondition: Prisma.EmailReminderWhereInput = {
       userId: userIdNum,
     };
