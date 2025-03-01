@@ -3,7 +3,7 @@
 if [ -z "$1" ]; then
   echo "用法: $0 <端口号> [auto_confirm]"
   echo "例如: $0 3000"
-  echo "或者: $0 3000 y (自动确认)"
+  echo "或者: $0 \${PORT:-3000} y (自动确认，使用环境变量PORT或默认3000)"
   exit 1
 fi
 

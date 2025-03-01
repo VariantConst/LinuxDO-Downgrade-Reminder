@@ -43,9 +43,12 @@ DATABASE_URL="file:./dev.db"  # SQLite数据库文件路径
 GMAIL_USER=your-gmail-address@gmail.com  # 用于发送邮件的Gmail地址
 GMAIL_APP_PASSWORD=your-gmail-app-password  # Gmail应用密码
 
+# 应用配置
+PORT=3000  # 应用运行端口，可根据需要修改
+
 # Next Auth 配置
 NEXTAUTH_SECRET=your-secret-here  # NextAuth加密密钥，可使用随机字符串
-NEXTAUTH_URL=http://localhost:3000  # 应用URL，生产环境需修改为实际域名
+NEXTAUTH_URL=http://localhost:${PORT}  # 应用URL，开发环境通常为`http://localhost:${PORT}`，其中PORT是应用运行端口，生产环境需要修改为实际域名
 LINUXDO_CLIENT_ID=your-client-id  # Linux.do OAuth客户端ID
 LINUXDO_CLIENT_SECRET=your-client-secret  # Linux.do OAuth客户端密钥
 ```
@@ -127,11 +130,21 @@ GMAIL_APP_PASSWORD=your-gmail-app-password
 - `GMAIL_USER`：您的 Gmail 邮箱地址
 - `GMAIL_APP_PASSWORD`：Gmail 应用密码（不是您的 Gmail 账户密码）
 
+### 应用配置
+
+```
+PORT=3000  # 应用运行端口，可根据需要修改
+```
+
+这个配置用于设置应用的运行端口：
+
+- `PORT`：应用监听的端口号，默认为 3000。如果需要在不同端口运行应用，可以修改此值。
+
 ### Next Auth 配置
 
 ```
 NEXTAUTH_SECRET=your-secret-here
-NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL=http://localhost:${PORT}
 LINUXDO_CLIENT_ID=your-client-id
 LINUXDO_CLIENT_SECRET=your-client-secret
 ```
@@ -139,7 +152,7 @@ LINUXDO_CLIENT_SECRET=your-client-secret
 这些配置用于设置 NextAuth 认证和 Linux.do OAuth 登录：
 
 - `NEXTAUTH_SECRET`：用于加密会话和令牌的密钥，建议使用随机生成的字符串
-- `NEXTAUTH_URL`：应用的完整 URL，开发环境通常为`http://localhost:3000`，生产环境需要修改为实际域名
+- `NEXTAUTH_URL`：应用的完整 URL，开发环境通常为`http://localhost:${PORT}`，其中 PORT 是应用运行端口，生产环境需要修改为实际域名
 - `LINUXDO_CLIENT_ID`：从 Linux.do 获取的 OAuth 客户端 ID
 - `LINUXDO_CLIENT_SECRET`：从 Linux.do 获取的 OAuth 客户端密钥
 
@@ -150,7 +163,7 @@ LINUXDO_CLIENT_SECRET=your-client-secret
 1. 登录到 Linux.do 平台
 2. 访问开发者设置页面
 3. 创建一个新的 OAuth 应用
-4. 设置应用名称和重定向 URL（例如：`http://localhost:3000/api/auth/callback/linuxdo`）
+4. 设置应用名称和重定向 URL（例如：`http://localhost:${PORT}/api/auth/callback/linuxdo`，其中 PORT 是应用运行端口）
 5. 提交申请后，您将获得客户端 ID 和客户端密钥
 6. 将这些值分别填入`LINUXDO_CLIENT_ID`和`LINUXDO_CLIENT_SECRET`环境变量
 
