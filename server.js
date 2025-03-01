@@ -12,13 +12,11 @@ const handle = app.getRequestHandler();
 
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 
-// 创建readline接口用于用户输入
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-// 检查端口是否被占用的函数
 function checkPortInUse(port, callback) {
   const server = createServer();
 
@@ -38,7 +36,6 @@ function checkPortInUse(port, callback) {
   server.listen(port);
 }
 
-// 启动应用
 app.prepare().then(() => {
   checkPortInUse(PORT, (inUse) => {
     if (inUse) {
@@ -49,9 +46,8 @@ app.prepare().then(() => {
           if (answer.toLowerCase() === "y") {
             console.log("\x1b[32m正在执行 free-port 命令...\x1b[0m");
 
-            // 使用pnpm run free-port:auto命令
             const freePortProcess = spawn("pnpm", ["run", "free-port:auto"], {
-              stdio: "inherit", // 继承父进程的标准输入输出
+              stdio: "inherit",
             });
 
             freePortProcess.on("close", (code) => {
@@ -93,7 +89,6 @@ function startServer() {
       `\x1b[32m> 应用已启动 - 正在监听 http://localhost:${PORT}\x1b[0m`
     );
 
-    // 如果是生产环境，触发定时任务
     if (!dev) {
       setTimeout(() => {
         console.log("\x1b[36m> 触发定时任务...\x1b[0m");

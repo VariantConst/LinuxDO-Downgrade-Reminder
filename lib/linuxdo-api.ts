@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// Linux.do 用户信息接口响应类型
 export interface LinuxDoUserResponse {
   users: {
     id: number;
@@ -17,7 +16,6 @@ export interface LinuxDoUserResponse {
   }[];
 }
 
-// 获取用户信息
 export async function getUserInfo(username: string): Promise<{
   id: number;
   username: string;

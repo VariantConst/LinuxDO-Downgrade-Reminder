@@ -3,7 +3,6 @@ import prisma from "../prisma";
 import { getUserInfo } from "../linuxdo-api";
 import { sendDowngradeReminder } from "../email";
 
-// 定义需要通知的用户类型
 interface UserToNotify {
   email: string;
   username: string;
@@ -25,9 +24,6 @@ async function checkUserTrustLevel(
       return null;
     }
 
-    // 测试用，实际应使用API返回的信任级别
-    userInfo.trust_level = 2;
-
     if (userInfo.trust_level !== currentTrustLevel) {
       console.log(
         `用户 ${username} 的信任级别从 ${currentTrustLevel} 变为 ${userInfo.trust_level}`
@@ -39,7 +35,6 @@ async function checkUserTrustLevel(
       });
 
       if (currentTrustLevel === 3 && userInfo.trust_level === 2) {
-        // 返回需要发送提醒的用户信息
         return {
           email,
           username,
@@ -82,7 +77,6 @@ async function checkAllUsersTrustLevels() {
         )
       );
 
-      // 收集需要通知的用户
       results.forEach((result) => {
         if (result) {
           usersToNotify.push(result);
@@ -96,11 +90,9 @@ async function checkAllUsersTrustLevels() {
 
     console.log("所有用户 Trust Level 检查完成");
 
-    // 如果有需要通知的用户，一次性发送所有通知
     if (usersToNotify.length > 0) {
       console.log(`共有 ${usersToNotify.length} 个用户需要发送降级提醒`);
 
-      // 批量发送邮件
       const emailResults = await Promise.all(
         usersToNotify.map((user) =>
           sendDowngradeReminder(

@@ -6,7 +6,6 @@ type CSSProperties = {
   [key: string]: string | CSSProperties;
 };
 
-// Define proper types for the plugin function parameters
 function addVariablesForColors({
   addBase,
   theme,

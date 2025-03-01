@@ -19,11 +19,9 @@ export const AuroraBackground = ({
     setMounted(true);
   }, []);
 
-  // 基础样式，不依赖于客户端状态
   const baseClasses =
     "relative flex flex-col h-[100vh] items-center justify-center transition-colors";
 
-  // 客户端挂载后应用的样式
   const clientClasses = mounted
     ? "bg-zinc-50 dark:bg-zinc-900 text-slate-950"
     : "bg-zinc-50 text-slate-950";
@@ -34,7 +32,6 @@ export const AuroraBackground = ({
         {mounted && (
           <div className="absolute inset-0 overflow-hidden">
             <div
-              //   I'm sorry but this is what peak developer performance looks like // trigger warning
               className={cn(
                 `
               [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]

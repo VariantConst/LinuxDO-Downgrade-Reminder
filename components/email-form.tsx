@@ -87,34 +87,45 @@ export function EmailForm({ username, userId, trustLevel }: EmailFormProps) {
     <div className="w-full">
       <p className="text-xl mb-10 text-muted-foreground leading-relaxed text-center">
         当您的信任等级从{" "}
-        <span className="font-medium text-green-800/80">三级</span> 降到{" "}
-        <span className="font-medium text-yellow-800/80">二级</span>{" "}
+        <span className="font-medium text-green-600 dark:text-green-400">
+          三级
+        </span>{" "}
+        降到{" "}
+        <span className="font-medium text-yellow-600 dark:text-yellow-400">
+          二级
+        </span>{" "}
         时，我们将通过邮件通知您。
       </p>
 
       {hasExistingEmail && !isLoading && (
-        <div className="mb-8 p-8 bg-gradient-to-b from-gray-50/80 to-gray-100/50 rounded-2xl border border-gray-200/60 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-md">
+        <div className="mb-8 p-8 bg-gradient-to-b from-gray-50/80 to-gray-100/50 dark:from-gray-800/30 dark:to-gray-900/20 rounded-2xl border border-gray-200/60 dark:border-gray-700/40 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-md">
           <div className="flex flex-col items-center">
             <div className="flex items-center mb-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-400 mr-2"
+                className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-2"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
-              <h3 className="text-base font-medium text-gray-500">当前邮箱</h3>
+              <h3 className="text-base font-medium text-gray-500 dark:text-gray-400">
+                当前邮箱
+              </h3>
             </div>
-            <p className="text-xl font-medium text-gray-700 mb-2 tracking-wide">
+            <p className="text-xl font-medium text-gray-700 dark:text-gray-300 mb-2 tracking-wide">
               {originalEmail}
             </p>
-            <p className="text-sm text-gray-500 flex items-center">
+            <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
               {isEmailChanged ? (
-                <span className="text-green-800/50">您正在修改邮箱地址</span>
+                <span className="text-green-600 dark:text-green-400">
+                  您正在修改邮箱地址
+                </span>
               ) : (
-                <span className="text-gray-500">您可以在下方修改邮箱地址</span>
+                <span className="text-gray-500 dark:text-gray-400">
+                  您可以在下方修改邮箱地址
+                </span>
               )}
             </p>
           </div>
@@ -126,7 +137,10 @@ export function EmailForm({ username, userId, trustLevel }: EmailFormProps) {
           className="space-y-2"
           style={{ "--ring": "234 89% 74%" } as React.CSSProperties}
         >
-          <Label htmlFor={emailId} className="text-gray-600 font-medium">
+          <Label
+            htmlFor={emailId}
+            className="text-gray-600 dark:text-gray-300 font-medium"
+          >
             邮箱地址
           </Label>
           <Input
@@ -137,12 +151,12 @@ export function EmailForm({ username, userId, trustLevel }: EmailFormProps) {
             placeholder="请输入您的邮箱地址"
             disabled={isLoading}
             required
-            className="py-2.5 px-4 bg-gray-50/80 border-gray-200/80 focus:border-gray-300 focus:ring-gray-200 transition-all duration-200"
+            className="py-2.5 px-4 bg-gray-50/80 dark:bg-gray-800/50 border-gray-200/80 dark:border-gray-700/50 focus:border-gray-300 dark:focus:border-gray-600 focus:ring-gray-200 dark:focus:ring-gray-700 transition-all duration-200"
           />
           {isLoading && (
-            <p className="text-sm text-gray-400 flex items-center">
+            <p className="text-sm text-gray-400 dark:text-gray-500 flex items-center">
               <svg
-                className="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-400"
+                className="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-400 dark:text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -167,10 +181,10 @@ export function EmailForm({ username, userId, trustLevel }: EmailFormProps) {
         </div>
 
         {error && (
-          <div className="text-red-500 text-sm mt-2 p-3 bg-red-50/50 border border-red-100 rounded-lg flex items-center">
+          <div className="text-red-500 dark:text-red-400 text-sm mt-2 p-3 bg-red-50/50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/30 rounded-lg flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-red-400 mr-2"
+              className="h-5 w-5 text-red-400 dark:text-red-500 mr-2"
               viewBox="0 0 20 20"
               fill="currentColor"
             >

@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 export function LogoutButton() {
   const [mounted, setMounted] = useState(false);
 
-  // 在客户端挂载后才渲染按钮
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -20,7 +19,7 @@ export function LogoutButton() {
   };
 
   if (!mounted) {
-    return <div className="w-9 h-9" />; // 占位符，保持布局稳定
+    return <div className="w-9 h-9" />;
   }
 
   return (
